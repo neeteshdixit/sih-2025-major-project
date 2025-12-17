@@ -3,117 +3,214 @@ export const Header = () => {
         <>
             <style>
                 {`
-                .header {
-                    position: sticky;
-                    top: 0;
-                    z-index: 50;
-                    background: rgba(255, 255, 255, 0.95);
-                    backdrop-filter: blur(8px);
-                    border-bottom: 1px solid #e5e7eb;
-                    padding: 12px 16px;
-                }
+/* ================= ROOT TOKENS ================= */
+:root {
+    --primary: #2563eb;
+    --primary-light: #3b82f6;
+    --success: #16a34a;
+    --text-dark: #111827;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+}
 
-                .header-top {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                }
+/* ================= HEADER ================= */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.95),
+        rgba(255, 255, 255, 0.88)
+    );
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 16px 22px;
+}
 
-                .icon-btn {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    border: none;
-                    background: transparent;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
+/* ================= TOP BAR ================= */
+.header-top {
+    display: grid;
+    grid-template-columns: 46px 1fr 46px;
+    align-items: center;
+}
 
-                .icon-btn:hover {
-                    background: #f3f4f6;
-                }
+.icon-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.15s ease;
+}
 
-                .header-title {
-                    font-size: 18px;
-                    font-weight: 700;
-                    text-align: center;
-                    flex: 1;
-                }
+.icon-btn:hover {
+    background: rgba(37, 99, 235, 0.12);
+}
 
-                .stepper {
-                    margin-top: 16px;
-                    margin-bottom: 8px;
-                }
+.icon-btn:active {
+    transform: scale(0.9);
+}
 
-                .stepper-wrapper {
-                    position: relative;
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 0 8px;
-                }
+.icon-btn span {
+    font-size: 22px;
+    color: var(--primary);
+}
 
-                .stepper-line {
-                    position: absolute;
-                    top: 50%;
-                    left: 0;
-                    width: 100%;
-                    height: 2px;
-                    background: #e5e7eb;
-                    transform: translateY(-50%);
-                }
+.header-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: 0.4px;
+}
 
-                .stepper-line-active {
-                    position: absolute;
-                    top: 50%;
-                    left: 0;
-                    width: 38%;
-                    height: 2px;
-                    background: #2563eb;
-                    transform: translateY(-50%);
-                }
+/* ================= STEPPER ================= */
+.stepper {
+    margin-top: 22px;
+}
 
-                .step {
-                    position: relative;
-                    z-index: 1;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 4px;
-                }
+.stepper-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
 
-                .step-circle {
-                    width: 32px;
-                    height: 32px;
-                    border-radius: 50%;
-                    border: 2px solid #d1d5db;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: #ffffff;
-                    color: #6b7280;
-                    font-size: 14px;
-                }
+/* Base line */
+.stepper-line {
+    position: absolute;
+    top: 19px;
+    left: 6%;
+    right: 6%;
+    height: 3px;
+    background: var(--border);
+    border-radius: 999px;
+}
 
-                .step.active .step-circle {
-                    background: #2563eb;
-                    border-color: #2563eb;
-                    color: #ffffff;
-                    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
-                }
+/* Active line */
+.stepper-line-active {
+    position: absolute;
+    top: 19px;
+    left: 6%;
+    width: 38%;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--primary),
+        var(--primary-light)
+    );
+    border-radius: 999px;
+    transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-                .step-label {
-                    font-size: 10px;
-                    font-weight: 600;
-                    color: #6b7280;
-                }
+/* ================= STEP ================= */
+.step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 64px;
+}
 
-                .step.active .step-label {
-                    color: #2563eb;
-                }
-                `}
+/* Circle */
+.step-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 18px;
+    transition: all 0.35s ease;
+}
+
+/* ================= ACTIVE STEP ================= */
+.step.active .step-circle {
+    background: radial-gradient(
+        circle at top,
+        #60a5fa,
+        var(--primary)
+    );
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow:
+        0 0 0 6px rgba(37, 99, 235, 0.18),
+        0 14px 30px rgba(37, 99, 235, 0.45);
+    animation: pulse 1.6s infinite;
+}
+
+/* ================= COMPLETED STEP ================= */
+.step.completed .step-circle {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border-color: #16a34a;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(22, 163, 74, 0.45);
+}
+
+.step.completed .step-circle span {
+    font-size: 20px;
+}
+
+/* ================= LABEL ================= */
+.step-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-align: center;
+    letter-spacing: 0.3px;
+    transition: color 0.3s ease;
+}
+
+.step.active .step-label {
+    color: var(--primary);
+}
+
+.step.completed .step-label {
+    color: var(--success);
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes pulse {
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(37, 99, 235, 0.45),
+            0 14px 30px rgba(37, 99, 235, 0.45);
+    }
+    70% {
+        box-shadow:
+            0 0 0 12px rgba(37, 99, 235, 0),
+            0 14px 30px rgba(37, 99, 235, 0.45);
+    }
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(37, 99, 235, 0),
+            0 14px 30px rgba(37, 99, 235, 0.45);
+    }
+}
+
+/* ================= SMALL SCREENS ================= */
+@media (max-width: 360px) {
+    .step-circle {
+        width: 34px;
+        height: 34px;
+    }
+
+    .step-label {
+        font-size: 10px;
+    }
+}
+`}
             </style>
+
 
             <header className="header">
                 <div className="header-top">
